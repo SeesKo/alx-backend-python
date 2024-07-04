@@ -6,12 +6,12 @@ safely retrieve a value from a dictionary.
 
 from typing import Mapping, Any, TypeVar, Union
 
-
 # Define a generic type variable ~T
 T = TypeVar('T')
 
 
-def safely_get_value(dct: Mapping[Any, T], key: Any, default: Union[T, None] = None) -> Union[T, None]:
+def safely_get_value(dct: Mapping, key: Any,
+                     default: Union[T, None] = None) -> Union[T, Any]:
     """
     Safely retrieves a value from a dictionary.
     """
