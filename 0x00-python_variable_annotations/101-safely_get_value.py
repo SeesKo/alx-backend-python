@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """
-Module provides a type-annotated function to
-safely retrieve a value from a dictionary.
+Module provides a type-annotated function to safely
+retrieve a value from a dictionary.
 """
 
 from typing import Mapping, Any, TypeVar, Union
+
 
 # Define a generic type variable ~T
 T = TypeVar('T')
 
 
 def safely_get_value(dct: Mapping, key: Any,
-                     default: Union[T, None] = None) -> Union[T, Any]:
+                     default: Union[T, None] = None) -> Union[Any, T]:
     """
     Safely retrieves a value from a dictionary.
     """
