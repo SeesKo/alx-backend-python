@@ -6,9 +6,9 @@ Async comprehensions are a combination of asynchronous generators and comprehens
 
 ### Basic Concepts
 
-1. Asynchronous Generators: These are generators that can use `await` inside them. They are defined using `async def` and `yield` values using yield.
-2. Async for: This allows you to iterate over asynchronous iterators.
-3. Async Comprehensions: These allow you to write comprehensions (like list comprehensions) that can await asynchronous operations.
+1. **Asynchronous Generators:** These are generators that can use `await` inside them. They are defined using `async def` and `yield` values using yield.
+2. **Async for:** This allows you to iterate over asynchronous iterators.
+3. **Async Comprehensions:** These allow you to write comprehensions (like list comprehensions) that can await asynchronous operations.
 
 ## Requirements
 
