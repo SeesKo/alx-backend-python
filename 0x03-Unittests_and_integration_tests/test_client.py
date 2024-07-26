@@ -153,16 +153,16 @@ class TestGithubOrgClient(unittest.TestCase):
 
         # Verify the org payload is correct
         self.assertEqual(client.org, self.org_payload)
-    
+
         # Verify the repos payload is correct
         self.assertEqual(self.repos_payload, client.repos_payload)
-    
+
         # Verify the public_repos method with default filtering
         self.assertEqual(client.public_repos(), self.expected_repos)
-    
+
         # Verify the public_repos method with a non-existing license
         self.assertEqual(client.public_repos("XLICENSE"), [])
-    
+
         # Assert that the mock was called
         self.mock_get.assert_called()
 
