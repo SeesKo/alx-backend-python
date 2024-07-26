@@ -49,24 +49,37 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         cls.get_patcher.stop()
 
-    def test_public_repos(self):
-        """Integration test: public repos"""
-        client = GithubOrgClient("google")
+    @patch('client.get_json')
+    def test_public_repos(self, mock_get_json):
+        """Unit test for GithubOrgClient.public_repos method"""
+        # Define the payload to be returned by get_json
+        mock_payload = [
+            {"name": "repo1", "license": {"key": "MIT"}},
+            {"name": "repo2", "license": {"key": "Apache-2.0"}},
+            {"name": "repo3", "license": {"key": "MIT"}}
+        ]
+        mock_get_json.return_value = mock_payload
 
-        # Verify the org payload is correct
-        self.assertEqual(client.org, self.org_payload)
+        # Define the expected URL
+        expected_url = 'https://api.github.com/orgs/google/repos'
 
-        # Verify the repos payload is correct
-        self.assertEqual(client.repos_payload, self.repos_payload)
+        with patch.object(
+            GithubOrgClient, '_public_repos_url',
+            new=expected_url
+        ):
+            client = GithubOrgClient("google")
 
-        # Verify the public_repos method with default filtering
-        self.assertEqual(client.public_repos(), self.expected_repos)
+            # Act
+            result = client.public_repos("Apache-2.0")
 
-        # Verify the public_repos method with a non-existing license
-        self.assertEqual(client.public_repos("XLICENSE"), [])
+            # Define the expected result
+            expected_repos = ["repo2"]
 
-        # Assert that the mock was called
-        self.mock_get.assert_called()
+            # Assert the result matches the expected repos
+            self.assertEqual(result, expected_repos)
+
+            # Assert that get_json was called once with the expected URL
+            mock_get_json.assert_called_once_with(expected_url)
 
     @parameterized.expand([
         ("google"),
