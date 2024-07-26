@@ -18,6 +18,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
     def test_access_nested_map(self, nested_map, path, expected):
+        """Test access_nested_map with valid inputs."""
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
     @parameterized.expand([
@@ -25,6 +26,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b")),
     ])
     def test_access_nested_map_exception(self, nested_map, path):
+        """Test access_nested_map raises KeyError for invalid inputs."""
         with self.assertRaises(KeyError) as cm:
             access_nested_map(nested_map, path)
         self.assertEqual(cm.exception.args[0], path[-1])
@@ -36,6 +38,7 @@ class TestGetJson(unittest.TestCase):
     """
     @patch('utils.requests.get')
     def test_get_json(self, mock_get):
+        """Test get_json returns correct JSON response."""
         mock_response = Mock()
         mock_response.json.return_value = {"key": "value"}
         mock_get.return_value = mock_response
@@ -92,6 +95,7 @@ class TestIntegration(unittest.TestCase):
     """
     @patch('utils.requests.get')
     def test_get_json_and_access_nested_map(self, mock_get):
+        """Test get_json and access_nested_map integration."""
         mock_response = Mock()
         mock_response.json.return_value = {"a": {"b": {"c": 1}}}
         mock_get.return_value = mock_response
