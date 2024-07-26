@@ -12,6 +12,7 @@ class TestAccessNestedMap(unittest.TestCase):
     """
     Unit tests for access_nested_map function
     """
+
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
@@ -36,6 +37,7 @@ class TestGetJson(unittest.TestCase):
     """
     Unit tests for get_json function
     """
+
     @patch('utils.requests.get')
     def test_get_json(self, mock_get):
         """Test get_json returns correct JSON response."""
@@ -57,6 +59,7 @@ class TestMemoize(unittest.TestCase):
         """
         Test memoize decorator to ensure method is called only once
         """
+
         class TestClass:
             def a_method(self):
                 """
@@ -93,6 +96,7 @@ class TestIntegration(unittest.TestCase):
     """
     Integration tests for utils functions
     """
+
     @patch('utils.requests.get')
     def test_get_json_and_access_nested_map(self, mock_get):
         """Test get_json and access_nested_map integration."""
